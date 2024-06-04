@@ -94,6 +94,8 @@ void _withMetaFontFile({
   for (var iconName in obj) {
     final unicode = jsonMap[iconName];
     buffer.writeln(
+        "  /// Icon: $iconName - Unicode: $unicode - page: ${_urlMap[jsonFileName] ?? 'Not Fond'}");
+    buffer.writeln(
         "  static const IconData ${_correctFormat(iconName)} = NewFlutterIconData.${_toCamelCase(newFileName)}($unicode);");
   }
   buffer.writeln("}");
@@ -111,6 +113,8 @@ void _normalFontFile(
     {required String jsonFileName, required Map<String, dynamic> jsonMap}) {
   final buffer = _createHeaderCode(jsonFileName);
   jsonMap.forEach((iconName, unicode) {
+    buffer.writeln(
+        "  /// Icon: $iconName - Unicode: $unicode - page: ${_urlMap[jsonFileName] ?? 'Not Fond'}");
     buffer.writeln(
         "  static const IconData ${_correctFormat(iconName)} = NewFlutterIconData.${_toCamelCase(jsonFileName)}($unicode);");
   });
